@@ -25,15 +25,12 @@ for line in lines:
                 last = line[i]
         else:
             for num in wordtodigit.keys():
-                try:
-                    if num in line[i:i+len(num)]:
-                        if first is None:
-                            first = line[i:i+len(num)]
-                            last = line[i:i+len(num)]
-                        else:
-                            last = line[i:i+len(num)]
-                except IndexError:
-                    pass
+                if i+len(num) <= len(line) and num in line[i:i+len(num)]:
+                    if first is None:
+                        first = line[i:i+len(num)]
+                        last = line[i:i+len(num)]
+                    else:
+                        last = line[i:i+len(num)]
                 
     if not first.isdigit():
         first = wordtodigit[first]
