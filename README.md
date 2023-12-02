@@ -1,2 +1,2 @@
 # advent-of-code
-For my spaghettios
+For my spaghettios who like python
