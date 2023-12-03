@@ -1,0 +1,2 @@
+import re
+print(sum([max(map(int, re.findall(r'(\d+) red', line))) * max(map(int, re.findall(r'(\d+) green',line))) * max(map(int, re.findall(r'(\d+) blue',line))) for line in open('input.txt').readlines()]))
