@@ -30,3 +30,22 @@ for line in lines:
         sum += game_num
 
 print(sum)
+
+import re
+
+game_regex_pattern = re.compile(r'Game (\d+):')
+red_regex_pattern = re.compile(r'(\d+) red')
+green_regex_pattern = re.compile(r'(\d+) green')
+blue_regex_pattern = re.compile(r'(\d+) blue')
+
+sum = 0
+for line in lines:
+    game_num = int(game_regex_pattern.findall(line)[0])
+    max_reds = max(map(int, red_regex_pattern.findall(line)))
+    max_greens = max(map(int, green_regex_pattern.findall(line)))
+    max_blues = max(map(int, blue_regex_pattern.findall(line)))
+    if max_reds > LIMIT_RED or max_greens > LIMIT_GREEN or max_blues > LIMIT_BLUE:
+        continue
+    sum += game_num
+
+print(sum)
