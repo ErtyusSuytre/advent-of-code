@@ -27,7 +27,7 @@ for line in lines:
                     if first is None:
                         first = wordtodigit[num]
                     last = wordtodigit[num]
-                
+    
     sum += int(first+last)
                 
 print(sum)
