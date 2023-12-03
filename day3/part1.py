@@ -26,7 +26,7 @@ for row, line in enumerate(lines):
                 if 0 <= row + dx < len(lines) and 0 <= col + dy < len(line) and is_symbol(lines[row + dx][col + dy]):
                     is_count = True
                     break
-        if is_num and not char.isdecimal():
+        if col == len(line) - 1 or (is_num and not char.isdecimal()):
             if is_count:
                 sum += int(num_str)
                 is_count = False
