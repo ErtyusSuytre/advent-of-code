@@ -25,17 +25,13 @@ for line in lines:
                 last = line[i]
         else:
             for num in wordtodigit.keys():
-                if i+len(num) <= len(line) and num in line[i:i+len(num)]:
+                if i+len(num) <= len(line) and num == line[i:i+len(num)]:
                     if first is None:
-                        first = line[i:i+len(num)]
-                        last = line[i:i+len(num)]
+                        first = wordtodigit[num]
+                        last = wordtodigit[num]
                     else:
-                        last = line[i:i+len(num)]
+                        last = wordtodigit[num]
                 
-    if not first.isdigit():
-        first = wordtodigit[first]
-    if not last.isdigit():
-        last = wordtodigit[last]
     sum += int(first+last)
                 
 print(sum)
