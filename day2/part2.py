@@ -6,8 +6,7 @@ for line in lines:
     line = line.rstrip()
     max_red, max_blue, max_green = 0, 0, 0
     game, colors = line.split(':')
-    colors = colors.split(';')
-    colors = [color.split(',') for color in colors]
+    colors = [color.split(',') for color in colors.split(';')]
     for color_section in colors:
         for color_num in color_section:
             _, num, color = color_num.split(' ')
