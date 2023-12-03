@@ -1,4 +1,4 @@
-with open('test.txt') as f:
+with open('input.txt') as f:
     lines = f.readlines()
 
 sum = 0
@@ -21,6 +21,7 @@ for line in lines:
     
 print(sum)
 
+from functools import reduce
 import re
 
 red_regex_pattern = re.compile(r'(\d+) red')
@@ -35,3 +36,6 @@ for line in lines:
     sum += max_red * max_green * max_blue
 
 print(sum)
+
+# One liner (not counting imports) xd
+print(reduce(lambda sum, line: sum + (max(map(int, re.findall(r'(\d+) red', line))) * max(map(int, re.findall(r'(\d+) green',line))) * max(map(int, re.findall(r'(\d+) blue',line)))), [0, *lines]))

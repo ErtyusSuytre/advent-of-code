@@ -31,6 +31,7 @@ for line in lines:
 
 print(sum)
 
+from functools import reduce
 import re
 
 game_regex_pattern = re.compile(r'Game (\d+):')
@@ -40,12 +41,14 @@ blue_regex_pattern = re.compile(r'(\d+) blue')
 
 sum = 0
 for line in lines:
-    game_num = int(game_regex_pattern.findall(line)[0])
+    game_num = int(game_regex_pattern.search(line).group(1))
     max_reds = max(map(int, red_regex_pattern.findall(line)))
     max_greens = max(map(int, green_regex_pattern.findall(line)))
     max_blues = max(map(int, blue_regex_pattern.findall(line)))
-    if max_reds > LIMIT_RED or max_greens > LIMIT_GREEN or max_blues > LIMIT_BLUE:
-        continue
-    sum += game_num
+    if max_reds <= LIMIT_RED and max_greens <= LIMIT_GREEN and max_blues <= LIMIT_BLUE:
+        sum += game_num
 
 print(sum)
+
+# One liner (not counting imports) xd
+print(reduce(lambda game1, game2: game1 + game2, [int(re.search(r'Game (\d+):', line).group(1)) if max(map(int, re.findall(r'(\d+) red',line))) <= 12 and max(map(int, re.findall(r'(\d+) green',line))) <= 13 and max(map(int, re.findall(r'(\d+) blue',line))) <= 14 else 0 for line in lines]))
