@@ -1,5 +1,11 @@
 with open("input.txt") as f:
     lines = f.readlines()
+    
+NEIGHBORS = [
+    (-1, -1), (-1, 0), (-1, 1),
+    (0, -1),           (0, 1),
+    (1, -1),  (1, 0),  (1, 1)
+]
 
 def get_num (line, col):
     # Get first digit
@@ -19,39 +25,12 @@ for row, line in enumerate(lines):
     for col, char in enumerate(line):
         if char == '*':
             num_numbers = []
-            # Check neighbors for digits
-            if row-1 >= 0 and col-1 >= 0 and lines[row-1][col-1].isdecimal():
-                line, num = get_num(lines[row-1], col-1)
-                lines[row-1] = line
-                num_numbers.append(num)
-            if row-1 >= 0 and lines[row-1][col].isdecimal():
-                line, num = get_num(lines[row-1], col)
-                lines[row-1] = line
-                num_numbers.append(num)
-            if row-1 >= 0 and col+1 < len(line) and lines[row-1][col+1].isdecimal():
-                line, num = get_num(lines[row-1], col+1)
-                lines[row-1] = line
-                num_numbers.append(num)
-            if col-1 >= 0 and lines[row][col-1].isdecimal():
-                line, num = get_num(lines[row], col-1)
-                lines[row] = line
-                num_numbers.append(num)
-            if col+1 < len(line) and lines[row][col+1].isdecimal():
-                line, num = get_num(lines[row], col+1)
-                lines[row] = line
-                num_numbers.append(num)
-            if row+1 < len(lines) and col-1 >= 0 and lines[row+1][col-1].isdecimal():
-                line, num = get_num(lines[row+1], col-1)
-                lines[row+1] = line
-                num_numbers.append(num)
-            if row+1 < len(lines) and lines[row+1][col].isdecimal():
-                line, num = get_num(lines[row+1], col)
-                lines[row+1] = line
-                num_numbers.append(num)
-            if row+1 < len(lines) and col+1 < len(line) and lines[row+1][col+1].isdecimal():
-                line, num = get_num(lines[row+1], col+1)
-                lines[row+1] = line
-                num_numbers.append(num)
+            # Check 8 neighbors for digits
+            for dx, dy in NEIGHBORS:
+                if 0 <= row + dx < len(lines) and 0 <= col + dy < len(line) and lines[row + dx][col + dy].isdecimal():
+                    line, num = get_num(lines[row + dx], col + dy)
+                    lines[row + dx] = line
+                    num_numbers.append(num)
             
             if len(num_numbers) == 2:
                 total_sum += num_numbers[0] * num_numbers[1]

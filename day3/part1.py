@@ -4,6 +4,12 @@ with open("input.txt") as f:
 def is_symbol(char):
     return not char.isdecimal() and not char == "."
 
+NEIGHBORS = [
+    (-1, -1), (-1, 0), (-1, 1),
+    (0, -1),           (0, 1),
+    (1, -1),  (1, 0),  (1, 1)
+]
+
 sum = 0
 is_num = False
 is_count = False
@@ -16,22 +22,10 @@ for row, line in enumerate(lines):
         if is_num and char.isdecimal():
             num_str += char
             # Check neighbors for special symbols (not . or digits)
-            if row-1>=0 and col-1>=0 and is_symbol(lines[row-1][col-1]):
-                is_count = True
-            if row-1>=0 and is_symbol(lines[row-1][col]):
-                is_count = True
-            if row-1>=0 and col+1<len(line) and is_symbol(lines[row-1][col+1]):
-                is_count = True
-            if col-1>=0 and is_symbol(lines[row][col-1]):
-                is_count = True
-            if col+1<len(line) and is_symbol(lines[row][col+1]):
-                is_count = True
-            if row+1<len(lines) and col-1>=0 and is_symbol(lines[row+1][col-1]):
-                is_count = True
-            if row+1<len(lines) and is_symbol(lines[row+1][col]):
-                is_count = True
-            if row+1<len(lines) and col+1<len(line) and is_symbol(lines[row+1][col+1]):
-                is_count = True
+            for dx, dy in NEIGHBORS:
+                if 0 <= row + dx < len(lines) and 0 <= col + dy < len(line) and is_symbol(lines[row + dx][col + dy]):
+                    is_count = True
+                    break
         if is_num and not char.isdecimal():
             if is_count:
                 sum += int(num_str)
