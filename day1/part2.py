@@ -34,11 +34,11 @@ print(sum)
 
 import re
 
-regex_expression = '(?=(' + r'\d|' + '|'.join(wordtodigit.keys()) + '))'
+regex_pattern = re.compile('(?=(' + r'\d|' + '|'.join(wordtodigit.keys()) + '))')
 
 sum = 0
 for line in lines:
-    nums = re.findall(regex_expression, line)
+    nums = regex_pattern.findall(line)
     first, last = nums[0], nums[-1]
     if not first.isdigit():
         first = wordtodigit[first]
