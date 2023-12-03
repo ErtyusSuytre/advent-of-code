@@ -20,17 +20,13 @@ for line in lines:
         if line[i].isdigit():
             if first is None:
                 first = line[i]
-                last = line[i]
-            else:
-                last = line[i]
+            last = line[i]
         else:
             for num in wordtodigit.keys():
                 if i+len(num) <= len(line) and num == line[i:i+len(num)]:
                     if first is None:
                         first = wordtodigit[num]
-                        last = wordtodigit[num]
-                    else:
-                        last = wordtodigit[num]
+                    last = wordtodigit[num]
                 
     sum += int(first+last)
                 
@@ -38,10 +34,7 @@ print(sum)
 
 import re
 
-regex_expression = r'\d'
-for num in wordtodigit.keys():
-    regex_expression += '|' + num
-regex_expression = '(?=(' + regex_expression + '))'
+regex_expression = '(?=(' + r'\d|' + '|'.join(wordtodigit.keys()) + '))'
 
 sum = 0
 for line in lines:
