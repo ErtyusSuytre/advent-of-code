@@ -18,16 +18,21 @@ for line in lines:
     first, last = None, None
     for i in range(len(line)):
         if line[i].isdigit():
-            if first is None:
-                first = line[i]
-            last = line[i]
-        else:
-            for num in wordtodigit.keys():
-                if i+len(num) <= len(line) and num == line[i:i+len(num)]:
-                    if first is None:
-                        first = wordtodigit[num]
-                    last = wordtodigit[num]
+            first = line[i]
+        for num in wordtodigit.keys():
+            if num == line[i:i+len(num)]:
+                first = wordtodigit[num]
+        if first:
+            break
     
+    for i in range(len(line)-1, -1, -1):
+        if line[i].isdigit():
+            last = line[i]
+        for num in wordtodigit.keys():
+            if num == line[i:i+len(num)]:
+                last = wordtodigit[num]
+        if last:
+            break
     sum += int(first+last)
                 
 print(sum)

@@ -6,11 +6,12 @@ for line in lines:
     first, last = None, None
     for c in line:
         if c.isdigit():
-            if first is None:
-                first = c
-                last = c
-            else:
-                last = c
+            first = c
+            break
+    for c in line[::-1]:
+        if c.isdigit():
+            last = c
+            break
     sum += int(first+last)
                 
 print(sum)
